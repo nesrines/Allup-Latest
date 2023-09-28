@@ -1,0 +1,20 @@
+﻿@model IEnumerable<BasketVM>
+
+<div class="breadcrumb-area">
+    <div class="container-fluid custom-container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Cart</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<section class="cart-page pt-10">
+    <div class="container-fluid custom-container">
+        <div id="basketContent" class="row">
+            @await Html.PartialAsync("_BasketPagePartial", Model)
+        </div>
+    </div>
+</section>

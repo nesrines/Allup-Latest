@@ -1,0 +1,47 @@
+﻿@model Brand
+@{
+    ViewData["Title"] = "Delete Brand";
+    int no = 0;
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Delete Brand</h1>
+</div>
+
+<div class="card mb-3" style="width: 25rem;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p>Created by <b>@Model.CreatedBy</b> on <i>@Model.CreatedDate.ToString("yyyy / MM / dd")</i></p>
+        <p>
+            Last updated by <b>@(Model.UpdatedBy == null ? Model.CreatedBy : Model.UpdatedBy)</b> on
+            <i>@((Model.UpdatedDate == null ? Model.CreatedDate : ((DateTime)Model.UpdatedDate)).ToString("yyyy / MM / dd"))</i>
+        </p>
+    </div>
+</div>
+
+@if (Model.Products != null && Model.Products.Count() > 0)
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Product Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Product product in Model.Products)
+            {
+                no++;
+                <tr>
+                    <td>@no</td>
+                    <td>@product.Title</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<div class="mt-3">
+    <a asp-area="Manage" asp-controller="Brand" asp-action="Index" class="btn btn-primary">Go Back</a>
+    <a asp-area="Manage" asp-controller="Brand" asp-action="DeleteBrand" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+</div>

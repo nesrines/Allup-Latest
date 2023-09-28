@@ -1,0 +1,274 @@
+﻿@model PaginatedList<Product>
+
+<div class="breadcrumb-area">
+    <div class="container-fluid custom-container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Shop</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<section class="shop-area pt-20">
+    <div class="container-fluid custom-container">
+        <div class="row flex-md-row-reverse justify-content-end">
+            <div class="col-lg-9">
+                <div class="banner-image banner-2 mt-30"><img src="assets/images/banner-13.jpg" alt="banner"></div>
+                <div class="shop-header">
+                    <div class="row align-items-center">
+                        <div class="col-sm-6">
+                            <div class="shop-header-left d-flex flex-wrap align-items-center">
+                                <div class="shop-header-message">
+                                    <p>Showing 1 to 9 of 15 (2 Pages)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="shop-header-right d-flex flex-wrap align-items-center justify-content-sm-end">
+                                <div class="shop-header-select d-flex flex-wrap">
+                                    <span class="select-title">Show:</span>
+                                    <select>
+                                        <option value="1">10</option>
+                                        <option value="2">20</option>
+                                        <option value="3">30</option>
+                                        <option value="4">40</option>
+                                    </select>
+                                </div>
+                                <div class="shop-header-select">
+                                    <span class="select-title">Sort By:</span>
+                                    <select>
+                                        <option value="1">Default</option>
+                                        <option value="2">Name (A-Z)</option>
+                                        <option value="3">Price (min - max)</option>
+                                        <option value="4">Color</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content" id="productContainer">
+                    @await Html.PartialAsync("_LoadMorePartial", Model)
+                </div>
+                <div class="mt-3">
+                    <a id="loadMoreBtn" asp-controller="Product" asp-action="LoadMore" data-pageIndex="@(Model.CurrentPage + 1)"
+                       data-maxPages="@ViewBag.MaxPages" class="btn btn-success w-100 py-2">LOAD MORE</a>
+                </div>
+                <ul class="pagination justify-content-center mt-30">
+                    @if (Model.HasPrev)
+                    {
+                        <li><a asp-controller="Product" asp-action="Index" asp-route-currentPage="@(Model.CurrentPage - 1)"><i class="fal fa-chevron-left"></i></a></li>
+                    }
+                    @for (int i = Model.Start; i <= Model.End; i++)
+                    {
+                        <li class="@(Model.CurrentPage == i ? "active" : "")"><a asp-controller="Product" asp-action="Index" asp-route-currentPage="@i">@i</a></li>
+                    }
+                    @if (Model.HasNext)
+                    {
+                        <li><a asp-controller="Product" asp-action="Index" asp-route-currentPage="@(Model.CurrentPage + 1)"><i class="fal fa-chevron-right"></i></a></li>
+                    }
+                </ul>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="shop-sidebar">
+                    <div class="shop-sidebar-widget mt-30">
+                        <h5 class="shop-sidebar-title">Laptop</h5>
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Hot Category</a>
+                                </div>
+
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul class="category-list">
+                                            <li><a href="#">Dresses</a></li>
+                                            <li><a href="#">Jackets & Coats</a></li>
+                                            <li><a href="#">Sweaters</a></li>
+                                            <li><a href="#">Jeans</a></li>
+                                            <li><a href="#">Blouses & Shirts</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- card -->
+                            <div class="card">
+                                <div class="card-header" id="headingTwo">
+                                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Outerwear & Jackets</a>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul class="category-list">
+                                            <li><a href="#">Basic Jackets</a></li>
+                                            <li><a href="#">Real Fur</a></li>
+                                            <li><a href="#">Down Coats</a></li>
+                                            <li><a href="#">Blazers</a></li>
+                                            <li><a href="#">Trench Coats </a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- card -->
+                            <div class="card">
+                                <div class="card-header" id="headingThree">
+                                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Weddings & Events</a>
+                                </div>
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul class="category-list">
+                                            <li><a href="#">Wedding Dresses</a></li>
+                                            <li><a href="#">Evening Dresses</a></li>
+                                            <li><a href="#">Prom Dresses </a></li>
+                                            <li><a href="#">Bridesmaid Dresses</a></li>
+                                            <li><a href="#">Wedding Accessories</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- card -->
+                            <div class="card">
+                                <div class="card-header" id="headingFour">
+                                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">Bottoms</a>
+                                </div>
+                                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul class="category-list">
+                                            <li><a href="#">Skirts</a></li>
+                                            <li><a href="#">Leggings</a></li>
+                                            <li><a href="#">Pants & Capris</a></li>
+                                            <li><a href="#">Wide Leg Pants</a></li>
+                                            <li><a href="#">Shorts</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- card -->
+                            <div class="card">
+                                <div class="card-header" id="headingFive">
+                                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">Tops & Sets</a>
+                                </div>
+                                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul class="category-list">
+                                            <li><a href="#">Tank Tops</a></li>
+                                            <li><a href="#">Suits & Sets</a></li>
+                                            <li><a href="#">Jumpsuits</a></li>
+                                            <li><a href="#">Rompers</a></li>
+                                            <li><a href="#">Sleep & Lounge</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- card -->
+                            <div class="card">
+                                <div class="card-header" id="headingSix">
+                                    <a href="#" class="collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">Accessories</a>
+                                </div>
+                                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul class="category-list">
+                                            <li><a href="#">Eyewear & Accessories</a></li>
+                                            <li><a href="#">Hats & Caps</a></li>
+                                            <li><a href="#">Belts & Cummerbunds</a></li>
+                                            <li><a href="#">Scarves & Wraps</a></li>
+                                            <li><a href="#">Gloves & Mittens</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- card -->
+                        </div> <!-- accordion -->
+                    </div> <!-- Shop sidebar Category -->
+
+                    <div class="shop-sidebar-widget mt-30">
+                        <h5 class="shop-sidebar-title">Color</h5>
+                        <ul class="color-list">
+                            <li><a href="#"><span class="color-gray"></span>Gray(1)</a></li>
+                            <li><a href="#"><span class="color-white"></span>White(5)</a></li>
+                            <li><a href="#"><span class="color-block"></span>Black(5)</a></li>
+                            <li><a href="#"><span class="color-Camel"></span>Camel(1)</a></li>
+                            <li><a href="#"><span class="color-orange"></span>Orange(1)</a></li>
+                        </ul>
+                    </div> <!-- Shop sidebar color -->
+
+                    <div class="shop-sidebar-widget mt-30">
+                        <h5 class="shop-sidebar-title">Compositions</h5>
+                        <ul class="compositions-list">
+                            <li>
+                                <span class="custom-checkbox">
+                                    <input type="checkbox" id="compositions1">
+                                    <label for="compositions1"></label>
+                                    <a href="#">Cotton(3)</a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="custom-checkbox">
+                                    <input type="checkbox" id="compositions2">
+                                    <label for="compositions2"></label>
+                                    <a href="#">Elastane(3)</a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="custom-checkbox">
+                                    <input type="checkbox" id="compositions3">
+                                    <label for="compositions3"></label>
+                                    <a href="#">Polyester(3)</a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="custom-checkbox">
+                                    <input type="checkbox" id="compositions4">
+                                    <label for="compositions4"></label>
+                                    <a href="#">Wool(3)</a>
+                                </span>
+                            </li>
+                        </ul>
+                    </div> <!-- Shop sidebar color -->
+
+                    <div class="shop-sidebar-widget mt-30">
+                        <h5 class="shop-sidebar-title">Price </h5>
+                        <div class="price-range">
+                            <input type="text" id="amount">
+                            <div id="slider-range"></div>
+                        </div>
+                    </div> <!-- Shop sidebar color -->
+
+                    <div class="shop-sidebar-widget mt-30">
+                        <h5 class="shop-sidebar-title">Size </h5>
+                        <ul class="size-list">
+                            <li>
+                                <span class="custom-checkbox">
+                                    <input type="checkbox" id="size1">
+                                    <label for="size1"></label>
+                                    <a href="#">S(3)</a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="custom-checkbox">
+                                    <input type="checkbox" id="size2">
+                                    <label for="size2"></label>
+                                    <a href="#">M(3)</a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="custom-checkbox">
+                                    <input type="checkbox" id="size3">
+                                    <label for="size3"></label>
+                                    <a href="#">L(3)</a>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="custom-checkbox">
+                                    <input type="checkbox" id="size4">
+                                    <label for="size4"></label>
+                                    <a href="#">XL(3)</a>
+                                </span>
+                            </li>
+                        </ul>
+                    </div> <!-- Shop sidebar Size -->
+
+                    <div class="banner-image banner-2 mt-30">
+                        <a href="#"><img src="assets/images/banner-10.jpg" alt="banner"></a>
+                    </div> <!-- banner image -->
+                </div> <!-- Shop sidebar -->
+            </div>
+        </div>
+    </div>
+</section>

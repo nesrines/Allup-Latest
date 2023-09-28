@@ -1,0 +1,82 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Category Details";
+    int no = 0;
+    int noProd = 0;
+}
+
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Category Details</h1>
+</div>
+
+<div class="card mb-3" style="width: 25rem;">
+    @if (Model.Image != null)
+    {
+        <img class="card-img-top" src="~/assets/images/@Model.Image" />
+    }
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p>Created by <b>@Model.CreatedBy</b> on <i>@Model.CreatedDate.ToString("yyyy / MM / dd")</i></p>
+        <p>
+            Last updated by <b>@(Model.UpdatedBy == null ? Model.CreatedBy : Model.UpdatedBy)</b> on
+            <i>@((Model.UpdatedDate == null ? Model.CreatedDate : ((DateTime)Model.UpdatedDate)).ToString("yyyy / MM / dd"))</i>
+        </p>
+    </div>
+</div>
+
+@if (Model.Children != null && Model.Children.Count() > 0)
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Name</th>
+                <th>Product Count</th>
+                <th>Last Updated</th>
+                <th>Settings</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Category child in Model.Children)
+            {
+                no++;
+                <tr>
+                    <td>@no</td>
+                    <td>@child.Name</td>
+                    <td>@child.Products?.Count()</td>
+                    <td>@((child.UpdatedDate == null ? child.CreatedDate : (DateTime)child.UpdatedDate).ToString("yyyy / MM / dd"))</td>
+                    <td>
+                        <a asp-area="Manage" asp-controller="Category" asp-action="Details" asp-route-id="@child.Id" class="btn btn-primary">See details</a>
+                        <a asp-area="Manage" asp-controller="Category" asp-action="Update" asp-route-id="@child.Id" class="btn btn-warning">Update</a>
+                        <a asp-area="Manage" asp-controller="Category" asp-action="Delete" asp-route-id="@child.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (Model.Products != null && Model.Products.Count() > 0)
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Product Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Product product in Model.Products)
+            {
+                noProd++;
+                <tr>
+                    <td>@noProd</td>
+                    <td>@product.Title</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a asp-area="Manage" asp-controller="Category" asp-action="Index" class="d-inline-block me-1 mt-3 btn btn-primary">Go Back</a>
